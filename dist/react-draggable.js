@@ -1511,12 +1511,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	  return { x: x, y: y };
 	}
 	
+	// HACK: Force css transform to output webkit prefixes for wkhtmltopdf
 	function createCSSTransform(_ref) /*: Object*/ {
+	  var _ref2;
+	
 	  var x = _ref.x,
 	      y = _ref.y;
 	
 	  // Replace unitless items with px
-	  return _defineProperty({}, (0, _getPrefix.browserPrefixToKey)('transform', _getPrefix2.default), 'translate(' + x + 'px,' + y + 'px)');
+	  return _ref2 = {}, _defineProperty(_ref2, (0, _getPrefix.browserPrefixToKey)('transform', _getPrefix2.default), 'translate(' + x + 'px,' + y + 'px)'), _defineProperty(_ref2, (0, _getPrefix.browserPrefixToKey)('transform', 'Webkit'), 'translate(' + x + 'px,' + y + 'px)'), _ref2;
 	}
 	
 	function createSVGTransform(_ref3) /*: string*/ {

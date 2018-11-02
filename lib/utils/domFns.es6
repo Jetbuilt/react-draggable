@@ -105,9 +105,13 @@ export function offsetXYFromParent(evt: {clientX: number, clientY: number}, offs
   return {x, y};
 }
 
+// HACK: Force css transform to output webkit prefixes for wkhtmltopdf
 export function createCSSTransform({x, y}: {x: number, y: number}): Object {
   // Replace unitless items with px
-  return {[browserPrefixToKey('transform', browserPrefix)]: 'translate(' + x + 'px,' + y + 'px)'};
+  return {
+    [browserPrefixToKey('transform', browserPrefix)]: 'translate(' + x + 'px,' + y + 'px)',
+    [browserPrefixToKey('transform', 'Webkit')]: 'translate(' + x + 'px,' + y + 'px)'
+  };
 }
 
 export function createSVGTransform({x, y}: {x: number, y: number}): string {
