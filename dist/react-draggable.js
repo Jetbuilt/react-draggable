@@ -634,7 +634,7 @@ function getBoundPosition(draggable /*: Draggable*/, x /*: number*/, y /*: numbe
     } else {
       boundNode = ownerDocument.querySelector(bounds);
     }
-    if (!(boundNode instanceof HTMLElement)) {
+    if (!boundNode) {
       throw new Error('Bounds selector "' + bounds + '" could not find an element.');
     }
     var nodeStyle = ownerWindow.getComputedStyle(node);
