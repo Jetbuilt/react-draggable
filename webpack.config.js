@@ -25,7 +25,7 @@ module.exports = {
     }
   },
 	module: {
-		rules: [
+		loaders: [
 			{
         test: /\.(?:js|es).?$/,
         loader: 'babel-loader?cacheDirectory',
@@ -34,15 +34,13 @@ module.exports = {
 		]
 	},
   resolve: {
-    extensions: ['.js']
+    extensions: ['', '.webpack.js', '.web.js', '.js', '.es6']
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         DRAGGABLE_DEBUG: process.env.DRAGGABLE_DEBUG
       }
-    }),
-    // Scope hoisting
-    new webpack.optimize.ModuleConcatenationPlugin(),
+    })
   ]
 };

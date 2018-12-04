@@ -1,6 +1,5 @@
 {
   "parser": "babel-eslint",
-  "extends": "eslint:recommended",
   "plugins": [
     "react"
   ],
@@ -9,13 +8,11 @@
     "quotes": [1, "single"],
     "curly": [1, "multi-line"],
     "camelcase": 0,
-    "comma-dangle": 0,
-    "no-console": 2,
+    "comma-dangle": 1,
     "no-use-before-define": [1, "nofunc"],
     "no-underscore-dangle": 0,
     "no-unused-vars": 1,
     "new-cap": 0,
-    "prefer-const": 1,
     "semi": 1
   },
   env: {
@@ -25,10 +22,6 @@
   globals: {
     // For Flow
     "ReactElement",
-    "ReactClass",
-    "$Shape",
-    "$Exact",
-    "$Keys",
-    "MouseTouchEvent",
+    "ReactClass"
   }
 }

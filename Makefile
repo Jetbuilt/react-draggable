@@ -7,15 +7,10 @@ DIST = dist
 LIB = $(DIST)/react-draggable.js
 MIN = $(DIST)/react-draggable.min.js
 
-.PHONY: test dev lint build clean
+.PHONY: test dev build clean
 
 clean:
 	rm -rf dist
-
-lint:
-	@$(BIN)/flow
-	@$(BIN)/eslint lib/* lib/utils/* specs/*
-	@$(BIN)/tsc -p typings
 
 build: $(LIB) $(MIN)
 
@@ -24,10 +19,12 @@ install link:
 	@npm $@
 
 dist/%.min.js: $(LIB) $(BIN)
-	$(BIN)/uglifyjs $< \
+	@$(BIN)/uglifyjs $< \
 	  --output $@ \
-	  --source-map "filename=$@.map,root=$(basename $<.map),content=$<.map" \
-	  --compress
+	  --source-map $@.map \
+	  --source-map-url $(basename $@.map) \
+	  --in-source-map $<.map \
+	  --compress warnings=false
 
 dist/%.js: $(BIN)
 	@$(BIN)/webpack --devtool source-map

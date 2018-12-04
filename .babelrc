@@ -1,18 +1,6 @@
 {
   "presets": [
-    "es2015",
-    "stage-1",
+    "env",
     "react"
-  ],
-  "plugins": [
-    "transform-flow-comments",
-  ],
-  "env": {
-    "test": {
-      "plugins": [
-        // Makes power-assert work
-        "espower"
-      ]
-    }
-  }
+  ]
 }

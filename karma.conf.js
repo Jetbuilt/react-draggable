@@ -1,6 +1,4 @@
 var webpack = require('webpack');
-process.env.NODE_ENV = 'test';
-process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function(config) {
   config.set({
@@ -21,23 +19,19 @@ module.exports = function(config) {
     },
 
     webpack: {
+      cache: true,
+      devtool: 'eval',
       module: {
-        // Suppress power-assert warning
-        exprContextCritical: false,
         loaders: [
           {
-            test: /\.(?:jsx?)$/,
+            test: /\.(?:js|es).?$/,
             loader: 'babel-loader',
             query: {
               cacheDirectory: true,
             },
-            exclude: /node_modules/
-          },
-          {
-            test: /\.json$/,
-            loader: 'json-loader'
+            exclude: /(node_modules)/
           }
-        ],
+        ]
       },
       plugins: [
         new webpack.DefinePlugin({
@@ -47,13 +41,12 @@ module.exports = function(config) {
         })
       ],
       resolve: {
-        extensions: ['.js']
+        extensions: ['', '.webpack.js', '.web.js', '.js', '.es6']
       }
     },
 
     webpackServer: {
       stats: {
-        chunks: false,
         colors: true
       }
     },
@@ -68,27 +61,24 @@ module.exports = function(config) {
 
     autoWatch: false,
 
-    browsers: ['PhantomJS_custom', 'Firefox', 'ChromeHeadless'],
+    browsers: ['PhantomJS', 'Firefox', process.env.TRAVIS ? 'Chrome_travis_ci' : 'Chrome'],
 
     customLaunchers: {
-      PhantomJS_custom: {
-        base: 'PhantomJS',
-        options: {
-          viewportSize: {width: 1024, height: 768}
-        }
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
       }
     },
 
-    singleRun: true,
+    singleRun: false,
 
     plugins: [
-      'karma-jasmine',
-      'karma-phantomjs-launcher',
-      'karma-firefox-launcher',
-      'karma-chrome-launcher',
-      'karma-ie-launcher',
-      'karma-webpack',
-      'karma-phantomjs-shim',
+      require('karma-jasmine'),
+      require('karma-phantomjs-launcher'),
+      require('karma-firefox-launcher'),
+      require('karma-chrome-launcher'),
+      require('karma-webpack'),
+      require('karma-phantomjs-shim')
     ]
   });
 };
